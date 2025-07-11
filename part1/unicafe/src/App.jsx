@@ -1,6 +1,13 @@
 import { useState } from "react";
 
-const StatisticLine = ({text, value}) => (<p>{text} {value}%</p>)
+const StatisticLine = ({text, value}) => {
+  return(
+  <tr>
+    <td>{text}</td>
+    <td>{value.toFixed(2)}%</td>
+  </tr>
+  )
+}
 
 const Statistic = ({good, neutral, bad}) => {
   const resGood = good * 1
@@ -13,12 +20,12 @@ const Statistic = ({good, neutral, bad}) => {
         <StatisticLine text="good" value={((good) / total) * 100}/>
         <StatisticLine text="neutral" value={((neutral) / total) * 100}/>
         <StatisticLine text="bad" value={((bad) / total) * 100}/>
-        <p>Average {(resGood + resNeutral + resBad) / total}</p>
+        <StatisticLine text="average" value={(resGood + resNeutral + resBad) / total}/>
       </>
     )
   }else{
     return(
-      <p>No feedback given</p>
+      <tr><td>No feedback given</td></tr>
     )
   }
 }
@@ -39,15 +46,26 @@ const App = () => {
 
       <h1>Statistics</h1>
       <table>
+        <tbody>
         <tr>
-          
+          <td>good</td>
+          <td>{good}</td>
         </tr>
+        <tr>
+          <td>neutral</td>
+          <td>{neutral}</td>
+        </tr>
+        <tr>
+          <td>bad</td>
+          <td>{bad}</td>
+        </tr>
+        <tr>
+          <td>total</td>
+          <td>{good + neutral + bad}</td>
+        </tr>
+        <Statistic good={good} neutral={neutral} bad={bad}/>
+        </tbody>  
       </table>
-      <p>good {good}</p>
-      <p>neutral {neutral}</p>
-      <p>bad {bad}</p>
-      <p>total {good + neutral + bad}</p>
-      <Statistic good={good} neutral={neutral} bad={bad}/>
 
 
     </div>
