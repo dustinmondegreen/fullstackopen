@@ -17,6 +17,13 @@ const getAll = () => {
   return request.then((response) => response.data.concat(nonExisting))
 }
 
+  // useEffect(() => {
+  //   noteService.getAll().then((initialNotes) => {
+  //     setNotes(initialNotes)
+  //   })
+  // }, [])
+
+
 const create = (newObject) => {
   const request = axios.post(baseUrl, newObject)
   return request.then((response) => response.data)
@@ -32,3 +39,4 @@ export default {
   create,
   update,
 }
+
