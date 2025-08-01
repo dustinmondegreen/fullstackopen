@@ -7,13 +7,22 @@ const PersonForm = ({persons, setPersons, newName, setNewName, newNumber, setNew
   const addNoteHandler = (event) => {
     event.preventDefault()
 
-    const newObject = {name: newName, number: newNumber }
+    const newObject = {name: newName, number: newNumber}
 
 
     if(persons.some(person => person.name === newName)){
-      personsService.put(newObject)
-      .then(setPersons(persons.map(person => person.name === newObject.name? newObject : person)))
-      return
+      const existingPerson = persons.find(person => person.name === newName);
+      const personToUpdate = { ...newObject, id: existingPerson.id };
+
+      personsService.put(personToUpdate)
+        .then(returnedPerson => {
+          setPersons(persons.map(person => person.id === returnedPerson.id ? returnedPerson : person));
+        })
+        .catch(error => {
+            console.error('Error updating person:', error);
+            alert('Failed to update person. Check console for details.');
+        });
+      return;
     }
     
     

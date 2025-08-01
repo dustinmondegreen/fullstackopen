@@ -1,0 +1,13 @@
+### Get all notes (to see current state)
+GET http://localhost:3001/api/notes
+
+###
+# POST Request: Add a new note (Successful)
+# This will have 'content' and 'important' specified.
+POST http://localhost:3001/api/notes HTTP/1.1
+content-type: application/json
+
+{
+    "content": "Learn Express.js routes and middleware!",
+    "important": true
+}
